@@ -5,6 +5,8 @@ let item = container.querySelectorAll('.list .item')
 let indicator = document.querySelector('.indicadores')
 let dots = indicator.querySelectorAll('ul li')
 let list = container.querySelector('.list')
+let touchstartX = 0;
+let touchendX = 0;
 
 let active = 0
 let firstPosition = 0
@@ -35,3 +37,16 @@ prevButton.onclick = () => {
   setSlider()
   item[active].classList.add('active')
 }
+
+container.addEventListener('touchstart', function(event) {
+  touchstartX = event.changedTouches[0].screenX;
+}, false);
+
+container.addEventListener('touchend', function(event) {
+  touchendX = event.changedTouches[0].screenX;
+  if (touchendX < touchstartX) {
+      nextButton.click();
+  } else {
+      prevButton.click();
+  }
+}, false);
